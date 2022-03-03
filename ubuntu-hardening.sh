@@ -192,7 +192,8 @@ chmod og-rwx /etc/ssh/sshd_config
 #Ensure SSH protocolis set to 2
 #sed -i 's/#Protocol 2/Protocol 2/g'  /etc/ssh/sshd_config
 #grep "^Protocol" /etc/ssh/sshd_config
-sed -ri'' 's/^#*Protocol.*$/Protocol 2/g' /etc/ssh/sshd_config && grep "^#*Protocol" /etc/ssh/sshd_config
+sed "/^ *Protocol/d" -i /etc/ssh/sshd_config
+echo 'Protocol 2' >> /etc/ssh/sshd_config
 
 #Ensure SSH LogLevel is set to INFO
 sed -i 's/#LogLevel INFO/Loglevel INFO/g' /etc/ssh/sshd_config
