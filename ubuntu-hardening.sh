@@ -189,29 +189,30 @@ echo -e "\e[93mPAM Done\e[0m"
 chown root:root /etc/ssh/sshd_config
 chmod og-rwx /etc/ssh/sshd_config
 
-#Ensure SSH protocolis set to 2
+#Ensure SSH protocolis set to 2 CHUA CHECK
 sed -i 's/#Protocol 2/Protocol 2/g'  /etc/ssh/sshd_config
 grep "^Protocol" /etc/ssh/sshd_config
 
-#Ensure SSH LogLevel is set to INFO
+#Ensure SSH LogLevel is set to INFO CHUA CHECK
 sed -i 's/#LogLevel INFO/Loglevel INFO/g' /etc/ssh/sshd_config
 grep "^LogLevel" /etc/ssh/sshd_config
 
-#Ensure X11 forwading is disabled
+#Ensure X11 forwading is disabled OK
 sed -i 's/X11Forwarding yes/X11Forwarding no/g' /etc/ssh/sshd_config
 grep "^X11Forwarding" /etc/ssh/sshd_config
 
-#Ensure SSH MaxAuthTries is set to 6 or less
+#Ensure SSH MaxAuthTries is set to 6 or less OK
 sed -i 's/#MaxAuthTries 6/MaxAuthTries 4/g' /etc/ssh/sshd_config
 #echo MaxAuthTries 6 >> /etc/ssh/sshd_config
 grep "^MaxAuthTries" /etc/ssh/sshd_config
 
-#Ensure SSH IgnoreRhosts is enabled
+#Ensure SSH IgnoreRhosts is enabled OK
 sed -i 's/#IgnoreRhosts yes/IgnoreRhosts yes/g'  /etc/ssh/sshd_config
 grep  "^IgnoreRhosts" /etc/ssh/sshd_config
 
-#Ensure SSH HostbasedAuthentication is disabled
-sed -i 's/#HostBasedAuthentication no/HostbasedAuthentication no/g' /etc/ssh/sshd_config
+#Ensure SSH HostbasedAuthentication is disabled CHUA CHECK
+#sed -i 's/#HostBasedAuthentication no/HostbasedAuthentication no/g' /etc/ssh/sshd_config
+sed -i 's/#HostBasedAuthentication/HostbasedAuthentication no/g' /etc/ssh/sshd_config
 grep "^HostbasedAuthentication" /etc/ssh/sshd_config
 
 #Ensure SSH root login is disabled
