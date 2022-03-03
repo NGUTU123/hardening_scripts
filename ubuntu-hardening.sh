@@ -48,96 +48,96 @@ chown root:root /etc/at.allow
 
 echo -e "\e[93mCron Done\e[0m"
 
-#Ensure chargen services are not enabled
+#Ensure chargen services are not enabled CHUA CHECK
 systemctl disable chargen-dgram
 systemctl disable chargen-stream
 
-#Ensure daytime services are not enabled
+#Ensure daytime services are not enabled CHUA CHECK
 systemctl disable daytime-dgram
 systemctl disable daytime-stream
 
-#Ensure discard services are not enabled
+#Ensure discard services are not enabled CHUA CHECK
 systemctl disable discard-dgram
 systemctl disable discard-stream
 
-#Ensure echo services are not enabled
+#Ensure echo services are not enabled CHUA CHECK
 systemctl disable echo-dgram
 systemctl disable echo-stream
 
-#Ensure time services are not enabled
+#Ensure time services are not enabled CHUA CHECK
 systemctl disable time-dgram
 systemctl disable time-stream
 
-#Ensure talk server is not enabled
+#Ensure talk server is not enabled CHUA CHECK
 systemctl disable talk
 
-#Ensure telnet server is not enabled
+#Ensure telnet server is not enabled CHUA CHECK
 systemctl disable telnet
 
-#Ensure tftp server is not enabled
+#Ensure tftp server is not enabled CHUA CHECK
 systemctl disable tftp
 
-#Ensure rsync service is not enabled
+#Ensure rsync service is not enabled BAT LAI KHI CAN
 systemctl disable rsync
 
-#Ensure Avahi Server is not enabled #multicast DNS/DNS-SD service discovery
+#Ensure Avahi Server is not enabled #multicast DNS/DNS-SD service discovery CHUA CHECK
 systemctl disable avahi-daemon
 
-#Ensure CUPS is not enabled # will prevent printing from system
+#Ensure CUPS is not enabled # will prevent printing from system CHUA CHECK
 systemctl disable cups
 
-#Ensure DHCP Server is not enabled
+#Ensure DHCP Server is not enabled CHUA CHECK
 systemctl disable dhcpd
 
-#Ensure LDAP server is not enabled
+#Ensure LDAP server is not enabled CHUA CHECK
 systemctl disable slapd
 
-#Ensure NFS and RPC are not enabled
+#Ensure NFS and RPC are not enabled CHUA CHECK
 systemctl disable nfs
 systemctl disable rpcbind
 
-#Ensure DNS Server is not enabled
+#Ensure DNS Server is not enabled OK
 systemctl disable named
 
-#Ensure FTP Server is not enabled
+#Ensure FTP Server is not enabled BAT LAI KHI CAN
 systemctl disable vsftpd
 
-#Ensure HTTP server is not enabled #check for apache, apache2
+#Ensure HTTP server is not enabled #check for apache, apache2 BAT LAI KHI CAN
 systemctl disable httpd
 
-#Ensure IMAP and POP3 server is not enabled
+#Ensure IMAP and POP3 server is not enabled BAT LAI KHI CAN
 systemctl disable dovecot
 
-#Ensure Samba is not enabled
+#Ensure Samba is not enabled CHUA CHECK
 systemctl disable smb
 
-# Ensure HTTP Proxy Server is not enabled
+# Ensure HTTP Proxy Server is not enabled BAT LAI KHI CAN
 systemctl disable squid
 
-#Ensure SNMP Server is not enabled
+#Ensure SNMP Server is not enabled CHUA CHECK
 systemctl disable snmpd
 
 #Ensure mail transfer agent is configured for local-only mode
 
-#Ensure NIS Server is not enabled
+#Ensure NIS Server is not enabled CHUA CHECK
 systemctl disable ypserv
 
-# Ensure mail transfer agent is configured for local-only mode
+# Ensure mail transfer agent is configured for local-only mode CHUA CHECK
 netstat -an | grep LIST | grep ":25[[:space:]]"
 
-#Ensure NIS Client is not installed
+#Ensure NIS Client is not installed CHUA CHECK
 apt-get -y remove ypbind
 
-#Ensure talk client is not installed
+#Ensure talk client is not installed CHUA CHECK
 apt-get -y remove talk
 
-#Ensure rsh client is not installed
+#Ensure rsh client is not installed CHUA CHECK
 apt-get -y remove rsh
 
-# Ensure telnet client is not installed
+# Ensure telnet client is not installed CHUA CHECK
 apt-get -y remove telnet
 
-#Ensure LDAP client is not installed
+#Ensure LDAP client is not installed CHUA CHECK
 apt-get -y remove openldap-clients
 
 echo -e "\e[93mOS services Done\e[0m"
@@ -190,8 +190,9 @@ chown root:root /etc/ssh/sshd_config
 chmod og-rwx /etc/ssh/sshd_config
 
 #Ensure SSH protocolis set to 2
-sed -i 's/#Protocol 2/Protocol 2/g'  /etc/ssh/sshd_config
-grep "^Protocol" /etc/ssh/sshd_config
+#sed -i 's/#Protocol 2/Protocol 2/g'  /etc/ssh/sshd_config
+#grep "^Protocol" /etc/ssh/sshd_config
+sed -ri'' 's/^#*Protocol.*$/Protocol 2/g' /etc/ssh/sshd_config && grep "^#*Protocol" /etc/ssh/sshd_config
 
 #Ensure SSH LogLevel is set to INFO
 sed -i 's/#LogLevel INFO/Loglevel INFO/g' /etc/ssh/sshd_config
@@ -222,7 +223,7 @@ grep "^PermitRootLogin" /etc/ssh/sshd_config
 sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/g'  /etc/ssh/sshd_config
 grep "^PermitEmptyPasswords" /etc/ssh/sshd_config
 
-#Ensure SSH PermitUserEnvironment is disabled
+#Ensure SSH PermitUserEnvironment is disabled OK
 sed -i 's/#PermitUserEnvironment no/PermitUserEnvironment no/g' /etc/ssh/sshd_config
 grep "^PermitUserEnvironment" /etc/ssh/sshd_config
 
