@@ -223,8 +223,7 @@ sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/g'  /etc/ssh/sshd_con
 grep "^PermitEmptyPasswords" /etc/ssh/sshd_config
 
 #Ensure SSH PermitUserEnvironment is disabled
-sed -i 's/#PermitUserEnvironment yes/PermitUserEnvironment no/g' /etc/ssh/sshd_config
-#echo  PermitUserEnvironment no >> /etc/ssh/sshd_config
+sed -i 's/#PermitUserEnvironment no/PermitUserEnvironment no/g' /etc/ssh/sshd_config
 grep "^PermitUserEnvironment" /etc/ssh/sshd_config
 
 #Ensure only approved ciphers are used
