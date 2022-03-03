@@ -211,8 +211,8 @@ sed -i 's/#IgnoreRhosts yes/IgnoreRhosts yes/g'  /etc/ssh/sshd_config
 grep  "^IgnoreRhosts" /etc/ssh/sshd_config
 
 #Ensure SSH HostbasedAuthentication is disabled CHUA CHECK
-#sed -i 's/#HostBasedAuthentication no/HostbasedAuthentication no/g' /etc/ssh/sshd_config
-sed -i 's/#HostbasedAuthentication no/HostbasedAuthentication no/g' /etc/ssh/sshd_config
+#sed -i 's/#HostbasedAuthentication no/HostbasedAuthentication no/g' /etc/ssh/sshd_config
+sed -ri'' 's/^#*HostbasedAuthentication.*$/HostbasedAuthentication no/g' /etc/ssh/sshd_config && grep "^#*HostbasedAuthentication" /etc/ssh/sshd_config
 grep "^HostbasedAuthentication" /etc/ssh/sshd_config
 
 #Ensure SSH root login is disabled
