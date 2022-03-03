@@ -210,7 +210,7 @@ grep "^MaxAuthTries" /etc/ssh/sshd_config
 sed -i 's/#IgnoreRhosts yes/IgnoreRhosts yes/g'  /etc/ssh/sshd_config
 grep  "^IgnoreRhosts" /etc/ssh/sshd_config
 
-#Ensure SSH HostbasedAuthentication is disabled CHUA CHECK
+#Ensure SSH HostbasedAuthentication is disabled OK
 sed -ri'' 's/^#*HostbasedAuthentication.*$/HostbasedAuthentication no/g' /etc/ssh/sshd_config && grep "^#*HostbasedAuthentication" /etc/ssh/sshd_config
 
 #Ensure SSH root login is disabled
