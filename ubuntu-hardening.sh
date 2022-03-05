@@ -145,6 +145,9 @@ sed -i -e 's/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="ipv6.disable=1"/' \
         /etc/default/grub
 update-grub
 
+# Remove Unnecessary Packages
+apt-get purge --auto-remove telnetd ftp vsftpd samba nfs-kernel-server nfs-common
+
 echo -e "\e[93mOS services Done\e[0m"
 
 
