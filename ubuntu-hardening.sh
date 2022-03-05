@@ -213,11 +213,11 @@ grep  "^IgnoreRhosts" /etc/ssh/sshd_config
 #Ensure SSH HostbasedAuthentication is disabled OK
 sed -ri'' 's/^#*HostbasedAuthentication.*$/HostbasedAuthentication no/g' /etc/ssh/sshd_config && grep "^#*HostbasedAuthentication" /etc/ssh/sshd_config
 
-#Ensure SSH root login is disabled
+#Ensure SSH root login is disabled OK
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/g' /etc/ssh/sshd_config
 grep "^PermitRootLogin" /etc/ssh/sshd_config
 
-#Ensure SSH PermitEmptyPasswords is disabled
+#Ensure SSH PermitEmptyPasswords is disabled OK
 sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/g'  /etc/ssh/sshd_config
 grep "^PermitEmptyPasswords" /etc/ssh/sshd_config
 
@@ -225,17 +225,17 @@ grep "^PermitEmptyPasswords" /etc/ssh/sshd_config
 sed -i 's/#PermitUserEnvironment no/PermitUserEnvironment no/g' /etc/ssh/sshd_config
 grep "^PermitUserEnvironment" /etc/ssh/sshd_config
 
-#Ensure only approved ciphers are used
+#Ensure only approved ciphers are used CHUA CHECK
 sed -i '/# Ciphers/ a Ciphers aes128-ctr,aes192-ctr,aes256-ctr' /etc/ssh/sshd_config
 grep "Ciphers" /etc/ssh/sshd_config
 
-#Ensure only approved MAC algorithms  are used
+#Ensure only approved MAC algorithms  are used CHUA CHECK
 sudo sed -i '/# Ciphers and keying/ a MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com' /etc/ssh/sshd_config
 grep "MACs" /etc/ssh/sshd_config
 
 #Ensure SSH Idle Timeout Interval is configured
 sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 300/g' /etc/ssh/sshd_config
-sed -i 's/ClientCountMax 3/ClientCountMax 0/g' /etc/ssh/sshd_config
+sed -i 's/#ClientAliveCountMax 3/ClientAliveCountMax 0/g' /etc/ssh/sshd_config
 grep "^ClientAliveInterval" /etc/ssh/sshd_config
 grep "^ClientAliveCountMax" /etc/ssh/sshd_config
 
