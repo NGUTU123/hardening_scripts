@@ -218,8 +218,10 @@ sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/g' /etc/ssh/sshd
 grep "^PermitRootLogin" /etc/ssh/sshd_config
 
 #Change SSH port OK
-sed -i 's/#Port 22/Port 13689/g' /etc/ssh/sshd_config
-grep "^Port" /etc/ssh/sshd_config
+sed -i 's/#Port 22/Port 2222/g' /etc/ssh/sshd_config
+service ssh restart
+#sed -i 's/#Port 22/Port 13689/g' /etc/ssh/sshd_config
+#grep "^Port" /etc/ssh/sshd_config
 
 #Ensure SSH PermitEmptyPasswords is disabled OK
 sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/g'  /etc/ssh/sshd_config
@@ -843,4 +845,4 @@ echo -e "\e[93mAudit and firewalld  Done\e[0m"
 echo -e "\e[32mAll Done\e[0m"
 ##Reboot of server
 echo -e "\e[31mHere comes the reboot. Brace for Alert\e[0m"
-reboot
+#reboot
