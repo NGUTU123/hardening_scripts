@@ -217,6 +217,10 @@ sed -ri'' 's/^#*HostbasedAuthentication.*$/HostbasedAuthentication no/g' /etc/ss
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/g' /etc/ssh/sshd_config
 grep "^PermitRootLogin" /etc/ssh/sshd_config
 
+#Change SSH port OK
+sed -i 's/#Port 22/Port 13689/g' /etc/ssh/sshd_config
+grep "^Port 22" /etc/ssh/sshd_config
+
 #Ensure SSH PermitEmptyPasswords is disabled OK
 sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/g'  /etc/ssh/sshd_config
 grep "^PermitEmptyPasswords" /etc/ssh/sshd_config
@@ -579,8 +583,8 @@ iptables -A OUTPUT -p icmp -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A INPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
 iptables -A INPUT -p udp -m state --state ESTABLISHED -j ACCEPT
 iptables -A INPUT -p icmp -m state --state ESTABLISHED -j ACCEPT
-# Open inbound ssh(tcp port 22) connections
-iptables -A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT
+# Open inbound ssh(tcp port 13689) connections
+iptables -A INPUT -p tcp --dport 13689 -m state --state NEW -j ACCEPT
 
 # Run the following commands to implement a default DROP policy
 iptables -P INPUT DROP
