@@ -233,28 +233,27 @@ grep "Ciphers" /etc/ssh/sshd_config
 sudo sed -i '/# Ciphers and keying/ a MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com' /etc/ssh/sshd_config
 grep "MACs" /etc/ssh/sshd_config
 
-#Ensure SSH Idle Timeout Interval is configured
+#Ensure SSH Idle Timeout Interval is configured OK
 sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 300/g' /etc/ssh/sshd_config
 sed -i 's/#ClientAliveCountMax 3/ClientAliveCountMax 0/g' /etc/ssh/sshd_config
 grep "^ClientAliveInterval" /etc/ssh/sshd_config
 grep "^ClientAliveCountMax" /etc/ssh/sshd_config
 
-#Ensure SSH LoginGraceTime is set to one minute or less
-#sed -i '/#LoginGraceTime/ a LoginGraceTime 60' /etc/ssh/sshd_config
+#Ensure SSH LoginGraceTime is set to one minute or less OK
 sed -i 's/#LoginGraceTime 2m/LoginGraceTime 60/g' /etc/ssh/sshd_config
 grep "^LoginGraceTime" /etc/ssh/sshd_config
 
-#Ensure SSH access is limited
+#Ensure SSH access is limited CHUA CHECK
 grep "^AllowUsers" /etc/ssh/sshd_config
 grep "^AllowGroups" /etc/ssh/sshd_config
 grep "^DenyUsers" /etc/ssh/sshd_config
 grep "^DenyGroups" /etc/ssh/sshd_config
 
-#Ensure SSH warning banner is configured
+#Ensure SSH warning banner is configured CHUA CHECK
 sed -i 's/#Banner \/etc\/issue\.net/Banner \/etc\/issue\.net/g'  /etc/ssh/sshd_config
 grep "^Banner" /etc/ssh/sshd_config
 
-#Add the banner
+#Add the banner CHUA CHECK
 sudo cat > /etc/issue.net <<- EOF
 ********************************************************************
 *                                                                  *
@@ -271,43 +270,43 @@ EOF
 
 echo -e "\e[93mSSH Done\e[0m"
 
-# Ensure permissions on /etc/gshadow- are configured
+# Ensure permissions on /etc/gshadow- are configured CHUA CHECK
 chown root:root /etc/gshadow-
 chmod 600 /etc/gshadow-
 stat /etc/gshadow-
 
-#Ensure permissions on /etc/group- are configured
+#Ensure permissions on /etc/group- are configured CHUA CHECK
 chown root:root /etc/group-
 chmod 600 /etc/group-
 stat /etc/group-
 
-#Ensure permissions on /etc/passwd- are configured
+#Ensure permissions on /etc/passwd- are configured CHUA CHECK
 chown root:root /etc/passwd-
 chmod 600 /etc/passwd-
 stat /etc/passwd-
 
-#Ensure permissions on /etc/gshadow are configured
+#Ensure permissions on /etc/gshadow are configured CHUA CHECK
 chown root:root /etc/gshadow
 chmod 000 /etc/gshadow
 stat /etc/gshadow
 
-#Ensure permissions on /etc/group are configured
+#Ensure permissions on /etc/group are configured CHUA CHECK
 chown root:root /etc/group
 chmod 644 /etc/group
 stat /etc/group
 
-#Ensure permissions on /etc/passwd are configured
+#Ensure permissions on /etc/passwd are configured CHUA CHECK
 chown root:root /etc/passwd
 chmod 644 /etc/passwd
 stat /etc/passwd
 
-#Ensure no world writable files exist
+#Ensure no world writable files exist CHUA CHECK
 df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -0002 -print
 
-#Ensure no ungrouped files or directories exist
+#Ensure no ungrouped files or directories exist CHUA CHECK
 df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup
 
-# Ensure no unowned files or directories exist
+# Ensure no unowned files or directories exist CHUA CHECK
 df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser
 
 for dir in `/bin/cat /etc/passwd | /bin/egrep -v '(root|sync|halt|shutdown)' |
@@ -329,48 +328,48 @@ echo -e "\e[93mSystem File Permissions Done\e[0m"
 
 login_defs=/etc/login.defs
 
-#Ensure Password expiration is 90 days or less
+#Ensure Password expiration is 90 days or less CHUA CHECK
 sed -i 's/^PASS_MAX_DAYS.*$/PASS_MAX_DAYS 90/' ${login_defs}
 grep PASS_MAX_DAYS /etc/login.defs
 egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1 # Verify Users password expiration is 90 days or less
 
-#Ensure minimum days between password changes is 1 or more
+#Ensure minimum days between password changes is 1 or more CHUA CHECK
 sed -i 's/^PASS_MIN_DAYS.*$/PASS_MIN_DAYS 7/' ${login_defs}
 grep PASS_MIN_DAYS /etc/login.defs
 egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1 # Verify users  minimum days between password changes is 1 or more
 
-#Ensure password expiration warning days is 7 or more
+#Ensure password expiration warning days is 7 or more CHUA CHECK
 sed -i 's/^PASS_WARN_AGE.*$/PASS_WARN_AGE 7/' ${login_defs}
 grep PASS_WARN_AGE /etc/login.defs
 egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1  #Verify users password expiration warning days is 7
 
-#Ensure inactive password lock is 90 days or less
+#Ensure inactive password lock is 90 days or less CHUA CHECK
 useradd -D -f 30
 useradd -D | grep INACTIVE
 egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1  #Verify Users have password inactivity set for 90 days
 
-#Ensure default user umask is 027 or more restrictive
+#Ensure default user umask is 027 or more restrictive CHUA CHECK
 sed -i '$ a umask 027' /etc/bash.bashrc
 sed -i '$ a umask 027' /etc/profile
 
 echo -e "\e[93mUser Account Done\e[0m"
 
-#Ensure password fields are not empty
+#Ensure password fields are not empty CHUA CHECK
 cat /etc/shadow | awk -F: '($2 == "" ) { print $1 " does not have a password "}'
 
-#Ensure no legacy "+" entries exist in /etc/passwd
+#Ensure no legacy "+" entries exist in /etc/passwd CHUA CHECK
 grep '^+:' /etc/passwd
 
-#Ensure no legacy "+" entries exist in /etc/shadow
+#Ensure no legacy "+" entries exist in /etc/shadow CHUA CHECK
 grep '^+:' /etc/shadow
 
-#Ensure no legacy "+" entries exist in /etc/group
+#Ensure no legacy "+" entries exist in /etc/group CHUA CHECK
 grep '^+:' /etc/group
 
-#Ensure root is the only UID 0 account
+#Ensure root is the only UID 0 account CHUA CHECK
 cat /etc/passwd | awk -F: '($3 == 0) { print $1 }'
 
-#Ensure root PATH Integrity
+#Ensure root PATH Integrity CHUA CHECK
 if [ "`echo $PATH | grep :: `" != "" ]; then
  echo "Empty Directory in PATH (::)"
 fi
@@ -404,14 +403,14 @@ while [ "$1" != "" ]; do
 done
 
 
- #Ensure all users' home directories exist
+ #Ensure all users' home directories exist CHUA CHECK
 cat /etc/passwd | awk -F: '{ print $1 " " $3 " " $6 }' | while read user uid dir; do
  if [ $uid -ge 1000 -a ! -d "$dir" -a $user != "nfsnobody" ]; then
  echo "The home directory ($dir) of user $user does not exist."
  fi
 done
 
-#Ensure users home directories permissions are 750 or more restrictive
+#Ensure users home directories permissions are 750 or more restrictive CHUA CHECK
 for dir in `cat /etc/passwd | egrep -v '(root|halt|sync|shutdown)' | awk -F: '($7 !="/sbin/nologin") {print $6}'`; do
  dirperm=`ls -ld $dir | cut -f1 -d" "`
  if [ `echo $dirperm | cut -c6 ` != "-" ]; then
@@ -429,7 +428,7 @@ fi
 done
 
 
-#Ensure users own their home directories
+#Ensure users own their home directories CHUA CHECK
 cat /etc/passwd | awk -F: '{ print $1 " " $3 " " $6 }' | while read user uid dir; do
 if [ $uid -ge 1000 -a -d "$dir" -a $user != "nfsnobody" ]; then
 owner=$(stat -L -c "%U" "$dir")
@@ -439,7 +438,7 @@ fi
 fi
 done
 
-#Ensure users dot files are not group or world writable
+#Ensure users dot files are not group or world writable CHUA CHECK
 
 for dir in `cat /etc/passwd | egrep -v '(root|sync|halt|shutdown)' | awk -F: '($7 !="/sbin/nologin") { print $6 }'`; do
 for file in $dir/.[A-Za-z0-9]*; do
@@ -456,7 +455,7 @@ fi
 done
 
 
-#Ensure no users have .forward files
+#Ensure no users have .forward files CHUA CHECK
 for dir in `cat /etc/passwd |\
 awk -F: '{ print $6 }'`; do
 if [ ! -h "$dir/.forward" -a -f "$dir/.forward" ]; then
@@ -464,7 +463,7 @@ echo ".forward file $dir/.forward exists"
 fi
 done
 
-#Ensure no users have .netrc files
+#Ensure no users have .netrc files CHUA CHECK
 for dir in `cat /etc/passwd |\
 awk -F: '{ print $6 }'`; do
 if [ ! -h "$dir/.netrc" -a -f "$dir/.netrc" ]; then
@@ -472,7 +471,7 @@ echo ".netrc file $dir/.netrc exists"
 fi
 done
 
-#Ensure users .netrc Files are not group or world accessible
+#Ensure users .netrc Files are not group or world accessible CHUA CHECK
 for dir in `cat /etc/passwd | egrep -v '(root|sync|halt|shutdown)' | awk -F: '($7 !="/sbin/nologin") { print $6 }'`; do
 for file in $dir/.netrc; do
 if [ ! -h "$file" -a -f "$file" ]; then
@@ -499,7 +498,7 @@ fi
 done
 done
 
-#Ensure no users have .rhosts files
+#Ensure no users have .rhosts files CHUA CHECK
 for dir in `cat /etc/passwd | egrep -v '(root|halt|sync|shutdown)' | awk -F: '($7 !="/sbin/nologin") { print $6 }'`; do
 for file in $dir/.rhosts; do
 if [ ! -h "$file" -a -f "$file" ]; then
@@ -509,7 +508,7 @@ done
 done
 
 
- #Ensure all groups in /etc/passwd exist in /etc/group
+ #Ensure all groups in /etc/passwd exist in /etc/group CHUA CHECK
  for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
  grep -q -P "^.*?:[^:]*:$i:" /etc/group
  if [ $? -ne 0 ]; then
@@ -517,7 +516,7 @@ done
  fi
 done
 
-#Ensure no duplicate UIDs exist
+#Ensure no duplicate UIDs exist CHUA CHECK
 cat /etc/passwd | cut -f3 -d":" | sort -n | uniq -c | while read x ; do
 [ -z "${x}" ] && break
 set - $x
@@ -527,7 +526,7 @@ echo "Duplicate UID ($2): ${users}"
 fi
 done
 
-#Ensure no duplicate GIDs exist
+#Ensure no duplicate GIDs exist CHUA CHECK
 cat /etc/group | cut -f3 -d":" | sort -n | uniq -c | while read x ; do
 [ -z "${x}" ] && break
 set - $x
@@ -537,7 +536,7 @@ echo "Duplicate GID ($2): ${groups}"
 fi
 done
 
-#Ensure no duplicate user names exist
+#Ensure no duplicate user names exist CHUA CHECK
 cat /etc/passwd | cut -f1 -d":" | sort -n | uniq -c | while read x ; do
 [ -z "${x}" ] && break
 set - $x
@@ -548,7 +547,7 @@ fi
 done
 
 
- #Ensure no duplicate group names exist
+ #Ensure no duplicate group names exist CHUA CHECK
  cat /etc/group | cut -f1 -d":" | sort -n | uniq -c | while read x ; do
 [ -z "${x}" ] && break
 set - $x
