@@ -214,7 +214,7 @@ grep  "^IgnoreRhosts" /etc/ssh/sshd_config
 sed -ri'' 's/^#*HostbasedAuthentication.*$/HostbasedAuthentication no/g' /etc/ssh/sshd_config && grep "^#*HostbasedAuthentication" /etc/ssh/sshd_config
 
 #Ensure SSH root login is disabled
-sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/g' /etc/ssh/sshd_config
 grep "^PermitRootLogin" /etc/ssh/sshd_config
 
 #Ensure SSH PermitEmptyPasswords is disabled
@@ -240,7 +240,8 @@ grep "^ClientAliveInterval" /etc/ssh/sshd_config
 grep "^ClientAliveCountMax" /etc/ssh/sshd_config
 
 #Ensure SSH LoginGraceTime is set to one minute or less
-sed -i '/#LoginGraceTime/ a LoginGraceTime 60' /etc/ssh/sshd_config
+#sed -i '/#LoginGraceTime/ a LoginGraceTime 60' /etc/ssh/sshd_config
+sed -i 's/#LoginGraceTime 2m/LoginGraceTime 60/g' /etc/ssh/sshd_config
 grep "^LoginGraceTime" /etc/ssh/sshd_config
 
 #Ensure SSH access is limited
