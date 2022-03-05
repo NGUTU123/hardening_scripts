@@ -219,7 +219,7 @@ grep "^PermitRootLogin" /etc/ssh/sshd_config
 
 #Change SSH port OK
 sed -i 's/#Port 22/Port 13689/g' /etc/ssh/sshd_config
-grep "^Port 22" /etc/ssh/sshd_config
+grep "^Port" /etc/ssh/sshd_config
 
 #Ensure SSH PermitEmptyPasswords is disabled OK
 sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/g'  /etc/ssh/sshd_config
