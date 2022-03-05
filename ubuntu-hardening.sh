@@ -140,6 +140,11 @@ apt-get -y remove telnet
 #Ensure LDAP client is not installed CHUA CHECK
 apt-get -y remove openldap-clients
 
+# Disable IPv6
+sed -i -e 's/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="ipv6.disable=1"/' \
+        /etc/default/grub
+update-grub
+
 echo -e "\e[93mOS services Done\e[0m"
 
 
