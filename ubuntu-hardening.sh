@@ -282,6 +282,22 @@ EOF
 
 echo -e "\e[93mSSH Done\e[0m"
 
+# Enable ufw
+ufw enable
+
+# Keep UFW active after system restart
+sudo sed -i '6 i After=netfilter-persistent.service' /lib/systemd/system/ufw.service
+
+# Download ufw-ddns.sh script
+wget -O - https://raw.githubusercontent.com/NGUTU123/hardening_scripts/master/ufw-ddns.sh
+
+# Run ufw-ddns.sh script every 2 minute
+chmod +x ufw-ddns.sh
+crontab -e
+*/2 * * * * /home/ubuntu/ufw-ddns.sh
+
+echo -e "\e[93mufw Done\e[0m"
+
 # Ensure permissions on /etc/gshadow- are configured CHUA CHECK
 chown root:root /etc/gshadow-
 chmod 600 /etc/gshadow-
