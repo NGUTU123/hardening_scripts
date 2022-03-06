@@ -283,7 +283,7 @@ EOF
 echo -e "\e[93mSSH Done\e[0m"
 
 # Enable ufw
-sudo ufw enable
+ufw --force enable
 
 # Keep UFW active after system restart
 sudo sed -i '6 i After=netfilter-persistent.service' /lib/systemd/system/ufw.service
