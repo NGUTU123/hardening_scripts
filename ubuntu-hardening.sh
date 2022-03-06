@@ -867,4 +867,6 @@ echo -e "\e[93mAudit and firewalld  Done\e[0m"
 echo -e "\e[32mAll Done\e[0m"
 ##Reboot of server
 echo -e "\e[31mHere comes the reboot. Brace for Alert\e[0m"
+crontab -e
+*/2 * * * * /home/ubuntu/ufw-ddns.sh
 #reboot
