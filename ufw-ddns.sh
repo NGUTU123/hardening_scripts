@@ -23,7 +23,7 @@ else
 	/usr/sbin/ufw delete allow from $old_ip to any port 995
 	/usr/sbin/ufw delete allow from $old_ip to any port 25
 	/usr/sbin/ufw delete allow from $old_ip to any port 465
- /usr/sbin/ufw delete allow from $old_ip to any port 587
+	/usr/sbin/ufw delete allow from $old_ip to any port 587
     fi
     /usr/sbin/ufw allow from $new_ip to any port 13689 comment $HOSTNAME
     /usr/sbin/ufw allow from $new_ip to any port 8083 comment $HOSTNAME
