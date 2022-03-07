@@ -293,8 +293,10 @@ curl -O https://raw.githubusercontent.com/NGUTU123/hardening_scripts/master/ufw-
 
 # Run ufw-ddns.sh script every 2 minute
 chmod +x ufw-ddns.sh
-crontab -e
-*/2 * * * * /home/ubuntu/ufw-ddns.sh
+sudo crontab -l > cron.bak
+sudo echo "*/2 * * * * /home/ubuntu/ufw-ddns.sh" >> cron.bak
+sudo crontab cron.bak
+sudo rm cron.bak
 
 echo -e "\e[93mufw Done\e[0m"
 
