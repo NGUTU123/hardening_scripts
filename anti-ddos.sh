@@ -19,7 +19,7 @@ MODPROBE="/sbin/modprobe"
 RMMOD="/sbin/rmmod"
 ARP="/usr/sbin/arp"
 
-# Logging options.
+# Logging options
 #------------------------------------------------------------------------------
 LOG="LOG --log-level debug --log-tcp-sequence --log-tcp-options"
 LOG="$LOG --log-ip-options"
