@@ -1,6 +1,8 @@
 #!/bin/sh
 #------------------------------------------------------------------------------
-##
+# wget https://raw.githubusercontent.com/NGUTU123/hardening_scripts/master/anti-ddos.sh
+# chmod u+x anti-ddos.sh
+# ./anti-ddos.sh
 # Compiler: Ruslan Abuzant <ruslan@abuzant.com>
 #           PS> Collected From Lots Of Sources
 #           PS> Credits: Real Authors (no idea)
