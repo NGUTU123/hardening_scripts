@@ -632,11 +632,11 @@ echo -e "\e[93mUser and Group Done\e[0m"
 #iptables -A INPUT -p udp -m state --state ESTABLISHED -j ACCEPT
 #iptables -A INPUT -p icmp -m state --state ESTABLISHED -j ACCEPT
 
-iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
-iptables -P OUTPUT ACCEPT
-iptables -F
-netfilter-persistent save
+#iptables -P INPUT ACCEPT
+#iptables -P FORWARD ACCEPT
+#iptables -P OUTPUT ACCEPT
+#iptables -F
+#netfilter-persistent save
 
 
 ########################
