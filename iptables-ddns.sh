@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set as cronjob
- *	*	*	*	*	/root/scripts/iptables-ddns.sh >> /root/logs/iptables-ddns.log 2>&1
+# *	*	*	*	*	/root/scripts/iptables-ddns.sh >> /root/logs/iptables-ddns.log 2>&1
 
 log () {
     echo "[$(date "+%F +%T")] [$1] $2" >> "$LOGS/changes.log"
