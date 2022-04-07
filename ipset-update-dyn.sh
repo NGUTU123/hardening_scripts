@@ -2,7 +2,7 @@
 # Update ipset to let my dynamic IP in
 
 set=whitelist
-host=myhost.dynamic.example.com
+host=recuc.ddns.net
 
 me=$(basename "$0")
 
