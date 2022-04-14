@@ -885,14 +885,3 @@ bash <(wget -qO- https://raw.githubusercontent.com/onesez/iptables/master/iptabl
 bash <(wget -qO- https://raw.githubusercontent.com/deep-318/DDOSScripts/master/DDOSStop.sh)
 bash <(wget -qO- https://gist.githubusercontent.com/ozeias/1051365/raw/dad19aea109abbb2a112c219a6ca46358734dc01/Firewall-DDoS.sh)
 bash <(wget -qO- https://codeberg.org/KasperIreland/ddos-protection-script/raw/branch/main/script-ubuntu-debian.sh)
-
-# only allow ip from ddns access to server
-sudo apt-get install dnsutils -y
-sudo apt-get install ipset -y
-ipset -exist create ssh-allowed hash:ip
-curl -O https://raw.githubusercontent.com/NGUTU123/hardening_scripts/master/iptables-ddns.sh
-chmod +x iptables-ddns.sh
-sudo crontab -l > cron.bak
-sudo echo "* * * * * /home/ubuntu/iptables-ddns.sh" >> cron.bak
-sudo crontab cron.bak
-sudo rm cron.bak
