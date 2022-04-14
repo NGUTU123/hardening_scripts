@@ -593,50 +593,50 @@ echo -e "\e[93mUser and Group Done\e[0m"
 ## Enable Firewall and Iptables ##
 ##################################
 # Flush IPtables rules
-iptables -F
+#iptables -F
 # Ensure default deny firewall policy
-iptables -P INPUT DROP
-iptables -P OUTPUT DROP
-iptables -P FORWARD DROP
+#iptables -P INPUT DROP
+#iptables -P OUTPUT DROP
+#iptables -P FORWARD DROP
 # Ensure loopback traffic is configured
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
-iptables -A INPUT -s 127.0.0.0/8 -j DROP
+#iptables -A INPUT -i lo -j ACCEPT
+#iptables -A OUTPUT -o lo -j ACCEPT
+#iptables -A INPUT -s 127.0.0.0/8 -j DROP
 # Ensure outbound and established connections are configured
-iptables -A OUTPUT -p tcp -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p udp -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p icmp -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A INPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
-iptables -A INPUT -p udp -m state --state ESTABLISHED -j ACCEPT
-iptables -A INPUT -p icmp -m state --state ESTABLISHED -j ACCEPT
+#iptables -A OUTPUT -p tcp -m state --state NEW,ESTABLISHED -j ACCEPT
+#iptables -A OUTPUT -p udp -m state --state NEW,ESTABLISHED -j ACCEPT
+#iptables -A OUTPUT -p icmp -m state --state NEW,ESTABLISHED -j ACCEPT
+#iptables -A INPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
+#iptables -A INPUT -p udp -m state --state ESTABLISHED -j ACCEPT
+#iptables -A INPUT -p icmp -m state --state ESTABLISHED -j ACCEPT
 # Open inbound ssh(tcp port 13689) connections
 #iptables -A INPUT -p tcp --dport 13689 -m state --state NEW -j ACCEPT
 
 # Run the following commands to implement a default DROP policy
-iptables -P INPUT DROP
-iptables -P OUTPUT DROP
-iptables -P FORWARD DROP
-iptables -L
+#iptables -P INPUT DROP
+#iptables -P OUTPUT DROP
+#iptables -P FORWARD DROP
+#iptables -L
 
 # Run the following commands to implement the loopback rules
-iptables -A INPUT -i lo -j ACCEPT
-iptables -A OUTPUT -o lo -j ACCEPT
-iptables -A INPUT -s 127.0.0.0/8 -j DROP
+#iptables -A INPUT -i lo -j ACCEPT
+#iptables -A OUTPUT -o lo -j ACCEPT
+#iptables -A INPUT -s 127.0.0.0/8 -j DROP
 
 # Configure iptables in accordance with site policy. The following commands will implement
 # a policy to allow all outbound connections and all established connections:
-iptables -A OUTPUT -p tcp -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p udp -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p icmp -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A INPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
-iptables -A INPUT -p udp -m state --state ESTABLISHED -j ACCEPT
-iptables -A INPUT -p icmp -m state --state ESTABLISHED -j ACCEPT
+#iptables -A OUTPUT -p tcp -m state --state NEW,ESTABLISHED -j ACCEPT
+#iptables -A OUTPUT -p udp -m state --state NEW,ESTABLISHED -j ACCEPT
+#iptables -A OUTPUT -p icmp -m state --state NEW,ESTABLISHED -j ACCEPT
+#iptables -A INPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
+#iptables -A INPUT -p udp -m state --state ESTABLISHED -j ACCEPT
+#iptables -A INPUT -p icmp -m state --state ESTABLISHED -j ACCEPT
 
-iptables -P INPUT ACCEPT
-iptables -P FORWARD ACCEPT
-iptables -P OUTPUT ACCEPT
-iptables -F
-netfilter-persistent save
+#iptables -P INPUT ACCEPT
+#iptables -P FORWARD ACCEPT
+#iptables -P OUTPUT ACCEPT
+#iptables -F
+#netfilter-persistent save
 
 
 ########################
@@ -874,9 +874,25 @@ echo -e "\e[32mAll Done\e[0m"
 ##Reboot of server
 echo -e "\e[31mHere comes the reboot. Brace for Alert\e[0m"
 #reboot
+
+########################
+## Hardening Ubuntu ##
+########################
+
 bash <(wget -qO- https://raw.githubusercontent.com/ertugrulturan/Kernel-DOS-Self-Protection/main/install)
 wget -O updater.sh 'https://raw.githubusercontent.com/XaviFortes/IPTables-DDOS-Protection/master/updater.sh' && chmod +x updater.sh && sed -i '1s/^.*#//;s/\r$//' updater.sh && ./updater.sh
 bash <(wget -qO- https://raw.githubusercontent.com/onesez/iptables/master/iptables.sh)
 bash <(wget -qO- https://raw.githubusercontent.com/deep-318/DDOSScripts/master/DDOSStop.sh)
 bash <(wget -qO- https://gist.githubusercontent.com/ozeias/1051365/raw/dad19aea109abbb2a112c219a6ca46358734dc01/Firewall-DDoS.sh)
 bash <(wget -qO- https://codeberg.org/KasperIreland/ddos-protection-script/raw/branch/main/script-ubuntu-debian.sh)
+
+# only allow ip from ddns access to server
+sudo apt-get install dnsutils -y
+sudo apt-get install ipset -y
+ipset -exist create ssh-allowed hash:ip
+curl -O https://raw.githubusercontent.com/NGUTU123/hardening_scripts/master/iptables-ddns.sh
+chmod +x iptables-ddns.sh
+sudo crontab -l > cron.bak
+sudo echo "* * * * * /home/ubuntu/iptables-ddns.sh" >> cron.bak
+sudo crontab cron.bak
+sudo rm cron.bak
