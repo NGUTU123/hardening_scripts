@@ -75,7 +75,7 @@ systemctl disable talk
 systemctl disable telnet
 
 #Ensure tftp server is not enabled CHUA CHECK
-systemctl disable tftp
+#systemctl disable tftp
 
 #Ensure rsync service is not enabled BAT LAI KHI CAN
 systemctl disable rsync
