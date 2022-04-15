@@ -100,7 +100,7 @@ systemctl disable rpcbind
 systemctl disable named
 
 #Ensure FTP Server is not enabled BAT LAI KHI CAN
-systemctl disable vsftpd
+#systemctl disable vsftpd
 
 #Ensure HTTP server is not enabled #check for apache, apache2 BAT LAI KHI CAN
 systemctl disable httpd
