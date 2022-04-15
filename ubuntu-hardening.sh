@@ -106,7 +106,7 @@ systemctl disable named
 systemctl disable httpd
 
 #Ensure IMAP and POP3 server is not enabled BAT LAI KHI CAN
-systemctl disable dovecot
+#systemctl disable dovecot
 
 #Ensure Samba is not enabled CHUA CHECK
 systemctl disable smb
@@ -256,10 +256,10 @@ sed -i 's/#LoginGraceTime 2m/LoginGraceTime 60/g' /etc/ssh/sshd_config
 grep "^LoginGraceTime" /etc/ssh/sshd_config
 
 #Ensure SSH access is limited CHUA CHECK
-grep "^AllowUsers" /etc/ssh/sshd_config
-grep "^AllowGroups" /etc/ssh/sshd_config
-grep "^DenyUsers" /etc/ssh/sshd_config
-grep "^DenyGroups" /etc/ssh/sshd_config
+#grep "^AllowUsers" /etc/ssh/sshd_config
+#grep "^AllowGroups" /etc/ssh/sshd_config
+#grep "^DenyUsers" /etc/ssh/sshd_config
+#grep "^DenyGroups" /etc/ssh/sshd_config
 
 #Ensure SSH warning banner is configured CHUA CHECK
 sed -i 's/#Banner \/etc\/issue\.net/Banner \/etc\/issue\.net/g'  /etc/ssh/sshd_config
