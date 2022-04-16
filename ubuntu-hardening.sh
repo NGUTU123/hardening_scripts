@@ -539,12 +539,12 @@ done
 
 
  #Ensure all groups in /etc/passwd exist in /etc/group CHUA CHECK
- for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
- grep -q -P "^.*?:[^:]*:$i:" /etc/group
- if [ $? -ne 0 ]; then
- echo "Group $i is referenced by /etc/passwd but does not exist in /etc/group"
- fi
-done
+ #4#for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
+ #4#grep -q -P "^.*?:[^:]*:$i:" /etc/group
+ #4#if [ $? -ne 0 ]; then
+ #4#echo "Group $i is referenced by /etc/passwd but does not exist in /etc/group"
+ #4#fi
+#4#done
 
 #Ensure no duplicate UIDs exist CHUA CHECK
 cat /etc/passwd | cut -f3 -d":" | sort -n | uniq -c | while read x ; do
