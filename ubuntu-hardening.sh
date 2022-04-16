@@ -326,9 +326,9 @@ stat /etc/gshadow
 #1#stat /etc/group
 
 #Ensure permissions on /etc/passwd are configured CHUA CHECK
-chown root:root /etc/passwd
-chmod 644 /etc/passwd
-stat /etc/passwd
+#1#chown root:root /etc/passwd
+#1#chmod 644 /etc/passwd
+#1#stat /etc/passwd
 
 #Ensure no world writable files exist CHUA CHECK
 df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -0002 -print
