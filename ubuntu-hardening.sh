@@ -366,7 +366,7 @@ egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1 # Verify Users password expiration
 #Ensure minimum days between password changes is 1 or more CHUA CHECK
 sed -i 's/^PASS_MIN_DAYS.*$/PASS_MIN_DAYS 7/' ${login_defs}
 grep PASS_MIN_DAYS /etc/login.defs
-egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1 # Verify users  minimum days between password changes is 1 or more
+egrep ^[^:]+:[^\!*] /etc/shadow | cut -d: -f1 # Verify users minimum days between password changes is 1 or more
 
 #Ensure password expiration warning days is 7 or more CHUA CHECK
 sed -i 's/^PASS_WARN_AGE.*$/PASS_WARN_AGE 7/' ${login_defs}
@@ -539,12 +539,12 @@ done
 
 
  #Ensure all groups in /etc/passwd exist in /etc/group CHUA CHECK
- for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
- grep -q -P "^.*?:[^:]*:$i:" /etc/group
- if [ $? -ne 0 ]; then
- echo "Group $i is referenced by /etc/passwd but does not exist in /etc/group"
- fi
-done
+ #1#for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
+ #1#grep -q -P "^.*?:[^:]*:$i:" /etc/group
+ #1#if [ $? -ne 0 ]; then
+ #1#echo "Group $i is referenced by /etc/passwd but does not exist in /etc/group"
+ #1#fi
+#1#done
 
 #Ensure no duplicate UIDs exist CHUA CHECK
 cat /etc/passwd | cut -f3 -d":" | sort -n | uniq -c | while read x ; do
