@@ -334,10 +334,10 @@ echo -e "\e[93mSSH Done\e[0m"
 df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -0002 -print
 
 #Ensure no ungrouped files or directories exist CHUA CHECK
-df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup
+#3#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup
 
 # Ensure no unowned files or directories exist CHUA CHECK
-df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser
+#3#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser
 
 for dir in `/bin/cat /etc/passwd | /bin/egrep -v '(root|sync|halt|shutdown)' |
 /usr/bin/awk -F: '($7 != "/usr/sbin/nologin") { print $6 }'`; do
@@ -388,13 +388,13 @@ echo -e "\e[93mUser Account Done\e[0m"
 cat /etc/shadow | awk -F: '($2 == "" ) { print $1 " does not have a password "}'
 
 #Ensure no legacy "+" entries exist in /etc/passwd CHUA CHECK
-grep '^+:' /etc/passwd
+#3#grep '^+:' /etc/passwd
 
 #Ensure no legacy "+" entries exist in /etc/shadow CHUA CHECK
-grep '^+:' /etc/shadow
+#3#grep '^+:' /etc/shadow
 
 #Ensure no legacy "+" entries exist in /etc/group CHUA CHECK
-grep '^+:' /etc/group
+#3#grep '^+:' /etc/group
 
 #Ensure root is the only UID 0 account CHUA CHECK
 cat /etc/passwd | awk -F: '($3 == 0) { print $1 }'
