@@ -112,7 +112,7 @@ systemctl disable httpd
 systemctl disable smb
 
 # Ensure HTTP Proxy Server is not enabled BAT LAI KHI CAN
-#2#systemctl disable squid
+#1#systemctl disable squid
 
 #Ensure SNMP Server is not enabled CHUA CHECK
 systemctl disable snmpd
@@ -334,10 +334,10 @@ stat /etc/gshadow
 df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -0002 -print
 
 #Ensure no ungrouped files or directories exist CHUA CHECK
-#2#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup
+#1#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup
 
 # Ensure no unowned files or directories exist CHUA CHECK
-#2#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser
+#1#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser
 
 for dir in `/bin/cat /etc/passwd | /bin/egrep -v '(root|sync|halt|shutdown)' |
 /usr/bin/awk -F: '($7 != "/usr/sbin/nologin") { print $6 }'`; do
@@ -388,13 +388,13 @@ echo -e "\e[93mUser Account Done\e[0m"
 cat /etc/shadow | awk -F: '($2 == "" ) { print $1 " does not have a password "}'
 
 #Ensure no legacy "+" entries exist in /etc/passwd CHUA CHECK
-#2#grep '^+:' /etc/passwd
+#1#grep '^+:' /etc/passwd
 
 #Ensure no legacy "+" entries exist in /etc/shadow CHUA CHECK
 grep '^+:' /etc/shadow
 
 #Ensure no legacy "+" entries exist in /etc/group CHUA CHECK
-#2#grep '^+:' /etc/group
+#1#grep '^+:' /etc/group
 
 #Ensure root is the only UID 0 account CHUA CHECK
 cat /etc/passwd | awk -F: '($3 == 0) { print $1 }'
@@ -441,32 +441,32 @@ cat /etc/passwd | awk -F: '{ print $1 " " $3 " " $6 }' | while read user uid dir
 done
 
 #Ensure users home directories permissions are 750 or more restrictive CHUA CHECK
-for dir in `cat /etc/passwd | egrep -v '(root|halt|sync|shutdown)' | awk -F: '($7 !="/sbin/nologin") {print $6}'`; do
- dirperm=`ls -ld $dir | cut -f1 -d" "`
- if [ `echo $dirperm | cut -c6 ` != "-" ]; then
- echo "Group Write permission set on directory $dir"
-fi
-if [ `echo $dirperm | cut -c8 ` != "-" ]; then
-echo "Other Read permission set on directory $dir"
-fi
-if [ `echo $dirperm | cut -c9 ` != "-" ]; then
-echo "Other Write permission set on directory $dir"
-fi
-if [ `echo $dirperm | cut -c10 ` != "-" ]; then
-echo "Other Execute permission set on directory $dir"
-fi
-done
+#2#for dir in `cat /etc/passwd | egrep -v '(root|halt|sync|shutdown)' | awk -F: '($7 !="/sbin/nologin") {print $6}'`; do
+ #2#dirperm=`ls -ld $dir | cut -f1 -d" "`
+ #2#if [ `echo $dirperm | cut -c6 ` != "-" ]; then
+ #2#echo "Group Write permission set on directory $dir"
+#2#fi
+#2#if [ `echo $dirperm | cut -c8 ` != "-" ]; then
+#2#echo "Other Read permission set on directory $dir"
+#2#fi
+#2#if [ `echo $dirperm | cut -c9 ` != "-" ]; then
+#2#echo "Other Write permission set on directory $dir"
+#2#fi
+#2#if [ `echo $dirperm | cut -c10 ` != "-" ]; then
+#2#echo "Other Execute permission set on directory $dir"
+#2#fi
+#2#done
 
 
 #Ensure users own their home directories CHUA CHECK
-cat /etc/passwd | awk -F: '{ print $1 " " $3 " " $6 }' | while read user uid dir; do
-if [ $uid -ge 1000 -a -d "$dir" -a $user != "nfsnobody" ]; then
-owner=$(stat -L -c "%U" "$dir")
-if [ "$owner" != "$user" ]; then
-echo "The home directory ($dir) of user $user is owned by $owner."
-fi
-fi
-done
+#2#cat /etc/passwd | awk -F: '{ print $1 " " $3 " " $6 }' | while read user uid dir; do
+#2#if [ $uid -ge 1000 -a -d "$dir" -a $user != "nfsnobody" ]; then
+#2#owner=$(stat -L -c "%U" "$dir")
+#2#if [ "$owner" != "$user" ]; then
+#2#echo "The home directory ($dir) of user $user is owned by $owner."
+#2#fi
+#2#fi
+#2#done
 
 #Ensure users dot files are not group or world writable CHUA CHECK
 
