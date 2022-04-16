@@ -256,10 +256,10 @@ sed -i 's/#LoginGraceTime 2m/LoginGraceTime 60/g' /etc/ssh/sshd_config
 grep "^LoginGraceTime" /etc/ssh/sshd_config
 
 #Ensure SSH access is limited CHUA CHECK
-grep "^AllowUsers" /etc/ssh/sshd_config
-grep "^AllowGroups" /etc/ssh/sshd_config
-grep "^DenyUsers" /etc/ssh/sshd_config
-grep "^DenyGroups" /etc/ssh/sshd_config
+#1#grep "^AllowUsers" /etc/ssh/sshd_config
+#1#grep "^AllowGroups" /etc/ssh/sshd_config
+#1#grep "^DenyUsers" /etc/ssh/sshd_config
+#1#grep "^DenyGroups" /etc/ssh/sshd_config
 
 #Ensure SSH warning banner is configured CHUA CHECK
 sed -i 's/#Banner \/etc\/issue\.net/Banner \/etc\/issue\.net/g'  /etc/ssh/sshd_config
