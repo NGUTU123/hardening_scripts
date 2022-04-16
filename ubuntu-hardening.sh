@@ -75,7 +75,7 @@ systemctl disable talk
 systemctl disable telnet
 
 #Ensure tftp server is not enabled CHUA CHECK
-#systemctl disable tftp
+#1#systemctl disable tftp
 
 #Ensure rsync service is not enabled BAT LAI KHI CAN
 systemctl disable rsync
@@ -100,13 +100,13 @@ systemctl disable rpcbind
 systemctl disable named
 
 #Ensure FTP Server is not enabled BAT LAI KHI CAN
-#systemctl disable vsftpd
+#1#systemctl disable vsftpd
 
 #Ensure HTTP server is not enabled #check for apache, apache2 BAT LAI KHI CAN
 systemctl disable httpd
 
 #Ensure IMAP and POP3 server is not enabled BAT LAI KHI CAN
-#systemctl disable dovecot
+#1#systemctl disable dovecot
 
 #Ensure Samba is not enabled CHUA CHECK
 systemctl disable smb
@@ -210,7 +210,7 @@ sed -i 's/X11Forwarding yes/X11Forwarding no/g' /etc/ssh/sshd_config
 grep "^X11Forwarding" /etc/ssh/sshd_config
 
 #Ensure SSH MaxAuthTries is set to 6 or less OK
-sed -i 's/#MaxAuthTries 6/MaxAuthTries 4/g' /etc/ssh/sshd_config
+sed -i 's/#MaxAuthTries 6/MaxAuthTries 3/g' /etc/ssh/sshd_config
 #echo MaxAuthTries 6 >> /etc/ssh/sshd_config
 grep "^MaxAuthTries" /etc/ssh/sshd_config
 
@@ -256,10 +256,10 @@ sed -i 's/#LoginGraceTime 2m/LoginGraceTime 60/g' /etc/ssh/sshd_config
 grep "^LoginGraceTime" /etc/ssh/sshd_config
 
 #Ensure SSH access is limited CHUA CHECK
-#grep "^AllowUsers" /etc/ssh/sshd_config
-#grep "^AllowGroups" /etc/ssh/sshd_config
-#grep "^DenyUsers" /etc/ssh/sshd_config
-#grep "^DenyGroups" /etc/ssh/sshd_config
+#1#grep "^AllowUsers" /etc/ssh/sshd_config
+#1#grep "^AllowGroups" /etc/ssh/sshd_config
+#1#grep "^DenyUsers" /etc/ssh/sshd_config
+#1#grep "^DenyGroups" /etc/ssh/sshd_config
 
 #Ensure SSH warning banner is configured CHUA CHECK
 sed -i 's/#Banner \/etc\/issue\.net/Banner \/etc\/issue\.net/g'  /etc/ssh/sshd_config
@@ -311,9 +311,9 @@ stat /etc/gshadow-
 #1#stat /etc/group-
 
 #Ensure permissions on /etc/passwd- are configured CHUA CHECK
-chown root:root /etc/passwd-
-chmod 600 /etc/passwd-
-stat /etc/passwd-
+#1#chown root:root /etc/passwd-
+#1#chmod 600 /etc/passwd-
+#1#stat /etc/passwd-
 
 #Ensure permissions on /etc/gshadow are configured CHUA CHECK
 chown root:root /etc/gshadow
