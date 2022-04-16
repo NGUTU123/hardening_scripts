@@ -301,34 +301,34 @@ echo -e "\e[93mSSH Done\e[0m"
 #echo -e "\e[93mufw Done\e[0m"
 
 # Ensure permissions on /etc/gshadow- are configured CHUA CHECK
-chown root:root /etc/gshadow-
-chmod 600 /etc/gshadow-
-stat /etc/gshadow-
+#1#chown root:root /etc/gshadow-
+#1#chmod 600 /etc/gshadow-
+#1#stat /etc/gshadow-
 
 #Ensure permissions on /etc/group- are configured CHUA CHECK
-chown root:root /etc/group-
-chmod 600 /etc/group-
-stat /etc/group-
+#1#chown root:root /etc/group-
+#1#chmod 600 /etc/group-
+#1#stat /etc/group-
 
 #Ensure permissions on /etc/passwd- are configured CHUA CHECK
-chown root:root /etc/passwd-
-chmod 600 /etc/passwd-
-stat /etc/passwd-
+#1#chown root:root /etc/passwd-
+#1#chmod 600 /etc/passwd-
+#1#stat /etc/passwd-
 
 #Ensure permissions on /etc/gshadow are configured CHUA CHECK
-chown root:root /etc/gshadow
-chmod 000 /etc/gshadow
-stat /etc/gshadow
+#1#chown root:root /etc/gshadow
+#1#chmod 000 /etc/gshadow
+#1#stat /etc/gshadow
 
 #Ensure permissions on /etc/group are configured CHUA CHECK
-chown root:root /etc/group
-chmod 644 /etc/group
-stat /etc/group
+#1#chown root:root /etc/group
+#1#chmod 644 /etc/group
+#1#stat /etc/group
 
 #Ensure permissions on /etc/passwd are configured CHUA CHECK
-chown root:root /etc/passwd
-chmod 644 /etc/passwd
-stat /etc/passwd
+#1#chown root:root /etc/passwd
+#1#chmod 644 /etc/passwd
+#1#stat /etc/passwd
 
 #Ensure no world writable files exist CHUA CHECK
 df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -0002 -print
