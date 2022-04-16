@@ -306,9 +306,9 @@ chmod 600 /etc/gshadow-
 stat /etc/gshadow-
 
 #Ensure permissions on /etc/group- are configured CHUA CHECK
-chown root:root /etc/group-
-chmod 600 /etc/group-
-stat /etc/group-
+#1#chown root:root /etc/group-
+#1#chmod 600 /etc/group-
+#1#stat /etc/group-
 
 #Ensure permissions on /etc/passwd- are configured CHUA CHECK
 chown root:root /etc/passwd-
@@ -321,9 +321,9 @@ chmod 000 /etc/gshadow
 stat /etc/gshadow
 
 #Ensure permissions on /etc/group are configured CHUA CHECK
-chown root:root /etc/group
-chmod 644 /etc/group
-stat /etc/group
+#1#chown root:root /etc/group
+#1#chmod 644 /etc/group
+#1#stat /etc/group
 
 #Ensure permissions on /etc/passwd are configured CHUA CHECK
 chown root:root /etc/passwd
