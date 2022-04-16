@@ -75,7 +75,7 @@ systemctl disable talk
 systemctl disable telnet
 
 #Ensure tftp server is not enabled CHUA CHECK
-#1#systemctl disable tftp
+systemctl disable tftp
 
 #Ensure rsync service is not enabled BAT LAI KHI CAN
 systemctl disable rsync
@@ -100,19 +100,19 @@ systemctl disable rpcbind
 systemctl disable named
 
 #Ensure FTP Server is not enabled BAT LAI KHI CAN
-#1#systemctl disable vsftpd
+systemctl disable vsftpd
 
 #Ensure HTTP server is not enabled #check for apache, apache2 BAT LAI KHI CAN
 systemctl disable httpd
 
 #Ensure IMAP and POP3 server is not enabled BAT LAI KHI CAN
-#1#systemctl disable dovecot
+systemctl disable dovecot
 
 #Ensure Samba is not enabled CHUA CHECK
 systemctl disable smb
 
 # Ensure HTTP Proxy Server is not enabled BAT LAI KHI CAN
-#1#systemctl disable squid
+systemctl disable squid
 
 #Ensure SNMP Server is not enabled CHUA CHECK
 systemctl disable snmpd
@@ -256,10 +256,10 @@ sed -i 's/#LoginGraceTime 2m/LoginGraceTime 60/g' /etc/ssh/sshd_config
 grep "^LoginGraceTime" /etc/ssh/sshd_config
 
 #Ensure SSH access is limited CHUA CHECK
-#1#grep "^AllowUsers" /etc/ssh/sshd_config
-#1#grep "^AllowGroups" /etc/ssh/sshd_config
-#1#grep "^DenyUsers" /etc/ssh/sshd_config
-#1#grep "^DenyGroups" /etc/ssh/sshd_config
+grep "^AllowUsers" /etc/ssh/sshd_config
+grep "^AllowGroups" /etc/ssh/sshd_config
+grep "^DenyUsers" /etc/ssh/sshd_config
+grep "^DenyGroups" /etc/ssh/sshd_config
 
 #Ensure SSH warning banner is configured CHUA CHECK
 sed -i 's/#Banner \/etc\/issue\.net/Banner \/etc\/issue\.net/g'  /etc/ssh/sshd_config
@@ -306,14 +306,14 @@ chmod 600 /etc/gshadow-
 stat /etc/gshadow-
 
 #Ensure permissions on /etc/group- are configured CHUA CHECK
-#1#chown root:root /etc/group-
-#1#chmod 600 /etc/group-
-#1#stat /etc/group-
+chown root:root /etc/group-
+chmod 600 /etc/group-
+stat /etc/group-
 
 #Ensure permissions on /etc/passwd- are configured CHUA CHECK
-#1#chown root:root /etc/passwd-
-#1#chmod 600 /etc/passwd-
-#1#stat /etc/passwd-
+chown root:root /etc/passwd-
+chmod 600 /etc/passwd-
+stat /etc/passwd-
 
 #Ensure permissions on /etc/gshadow are configured CHUA CHECK
 chown root:root /etc/gshadow
@@ -321,23 +321,23 @@ chmod 000 /etc/gshadow
 stat /etc/gshadow
 
 #Ensure permissions on /etc/group are configured CHUA CHECK
-#1#chown root:root /etc/group
-#1#chmod 644 /etc/group
-#1#stat /etc/group
+chown root:root /etc/group
+chmod 644 /etc/group
+stat /etc/group
 
 #Ensure permissions on /etc/passwd are configured CHUA CHECK
-#1#chown root:root /etc/passwd
-#1#chmod 644 /etc/passwd
-#1#stat /etc/passwd
+chown root:root /etc/passwd
+chmod 644 /etc/passwd
+stat /etc/passwd
 
 #Ensure no world writable files exist CHUA CHECK
 df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -0002 -print
 
 #Ensure no ungrouped files or directories exist CHUA CHECK
-#1#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup
+df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup
 
 # Ensure no unowned files or directories exist CHUA CHECK
-#1#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser
+df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser
 
 for dir in `/bin/cat /etc/passwd | /bin/egrep -v '(root|sync|halt|shutdown)' |
 /usr/bin/awk -F: '($7 != "/usr/sbin/nologin") { print $6 }'`; do
@@ -388,13 +388,13 @@ echo -e "\e[93mUser Account Done\e[0m"
 cat /etc/shadow | awk -F: '($2 == "" ) { print $1 " does not have a password "}'
 
 #Ensure no legacy "+" entries exist in /etc/passwd CHUA CHECK
-#1#grep '^+:' /etc/passwd
+grep '^+:' /etc/passwd
 
 #Ensure no legacy "+" entries exist in /etc/shadow CHUA CHECK
 grep '^+:' /etc/shadow
 
 #Ensure no legacy "+" entries exist in /etc/group CHUA CHECK
-#1#grep '^+:' /etc/group
+grep '^+:' /etc/group
 
 #Ensure root is the only UID 0 account CHUA CHECK
 cat /etc/passwd | awk -F: '($3 == 0) { print $1 }'
@@ -539,12 +539,12 @@ done
 
 
  #Ensure all groups in /etc/passwd exist in /etc/group CHUA CHECK
- #1#for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
- #1#grep -q -P "^.*?:[^:]*:$i:" /etc/group
- #1#if [ $? -ne 0 ]; then
- #1#echo "Group $i is referenced by /etc/passwd but does not exist in /etc/group"
- #1#fi
-#1#done
+ for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
+ grep -q -P "^.*?:[^:]*:$i:" /etc/group
+ if [ $? -ne 0 ]; then
+ echo "Group $i is referenced by /etc/passwd but does not exist in /etc/group"
+ fi
+done
 
 #Ensure no duplicate UIDs exist CHUA CHECK
 cat /etc/passwd | cut -f3 -d":" | sort -n | uniq -c | while read x ; do
