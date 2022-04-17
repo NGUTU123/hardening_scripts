@@ -211,7 +211,6 @@ grep "^X11Forwarding" /etc/ssh/sshd_config
 
 #Ensure SSH MaxAuthTries is set to 6 or less OK
 sed -i 's/#MaxAuthTries 6/MaxAuthTries 3/g' /etc/ssh/sshd_config
-#echo MaxAuthTries 6 >> /etc/ssh/sshd_config
 grep "^MaxAuthTries" /etc/ssh/sshd_config
 
 #Ensure SSH IgnoreRhosts is enabled OK
@@ -434,11 +433,11 @@ done
 
 
  #Ensure all users' home directories exist CHUA CHECK
-cat /etc/passwd | awk -F: '{ print $1 " " $3 " " $6 }' | while read user uid dir; do
- if [ $uid -ge 1000 -a ! -d "$dir" -a $user != "nfsnobody" ]; then
- echo "The home directory ($dir) of user $user does not exist."
- fi
-done
+#5#cat /etc/passwd | awk -F: '{ print $1 " " $3 " " $6 }' | while read user uid dir; do
+ #5#if [ $uid -ge 1000 -a ! -d "$dir" -a $user != "nfsnobody" ]; then
+ #5#echo "The home directory ($dir) of user $user does not exist."
+ #5#fi
+#5#done
 
 #Ensure users home directories permissions are 750 or more restrictive CHUA CHECK
 #2#for dir in `cat /etc/passwd | egrep -v '(root|halt|sync|shutdown)' | awk -F: '($7 !="/sbin/nologin") {print $6}'`; do
