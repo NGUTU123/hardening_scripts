@@ -75,7 +75,7 @@ systemctl disable talk
 systemctl disable telnet
 
 #Ensure tftp server is not enabled CHUA CHECK
-systemctl disable tftp
+#7#systemctl disable tftp
 
 #Ensure rsync service is not enabled BAT LAI KHI CAN
 systemctl disable rsync
@@ -396,7 +396,7 @@ cat /etc/shadow | awk -F: '($2 == "" ) { print $1 " does not have a password "}'
 #3#grep '^+:' /etc/group
 
 #Ensure root is the only UID 0 account CHUA CHECK
-cat /etc/passwd | awk -F: '($3 == 0) { print $1 }'
+#7#cat /etc/passwd | awk -F: '($3 == 0) { print $1 }'
 
 #Ensure root PATH Integrity CHUA CHECK
 if [ "`echo $PATH | grep :: `" != "" ]; then
@@ -469,19 +469,19 @@ done
 
 #Ensure users dot files are not group or world writable CHUA CHECK
 
-for dir in `cat /etc/passwd | egrep -v '(root|sync|halt|shutdown)' | awk -F: '($7 !="/sbin/nologin") { print $6 }'`; do
-for file in $dir/.[A-Za-z0-9]*; do
-if [ ! -h "$file" -a -f "$file" ]; then
-fileperm=`ls -ld $file | cut -f1 -d" "`
-if [ `echo $fileperm | cut -c6 ` != "-" ]; then
-echo "Group Write permission set on file $file"
-fi
-if [ `echo $fileperm | cut -c9 ` != "-" ]; then
-echo "Other Write permission set on file $file"
-fi
-fi
- done
-done
+#7#for dir in `cat /etc/passwd | egrep -v '(root|sync|halt|shutdown)' | awk -F: '($7 !="/sbin/nologin") { print $6 }'`; do
+#7#for file in $dir/.[A-Za-z0-9]*; do
+#7#if [ ! -h "$file" -a -f "$file" ]; then
+#7#fileperm=`ls -ld $file | cut -f1 -d" "`
+#7#if [ `echo $fileperm | cut -c6 ` != "-" ]; then
+#7#echo "Group Write permission set on file $file"
+#7#fi
+#7#if [ `echo $fileperm | cut -c9 ` != "-" ]; then
+#7#echo "Other Write permission set on file $file"
+#7#fi
+#7#fi
+ #7#done
+#7#done
 
 
 #Ensure no users have .forward files CHUA CHECK
