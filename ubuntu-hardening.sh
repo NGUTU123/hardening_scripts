@@ -112,7 +112,7 @@ systemctl disable httpd
 systemctl disable smb
 
 # Ensure HTTP Proxy Server is not enabled BAT LAI KHI CAN
-systemctl disable squid
+#6#systemctl disable squid
 
 #Ensure SNMP Server is not enabled CHUA CHECK
 systemctl disable snmpd
@@ -577,14 +577,14 @@ done
 
 
  #Ensure no duplicate group names exist CHUA CHECK
- cat /etc/group | cut -f1 -d":" | sort -n | uniq -c | while read x ; do
-[ -z "${x}" ] && break
-set - $x
-if [ $1 -gt 1 ]; then
-gids=`gawk -F: '($1 == n) { print $3 }' n=$2 /etc/group | xargs`
-echo "Duplicate Group Name ($2): ${gids}"
-fi
-done
+ #6#cat /etc/group | cut -f1 -d":" | sort -n | uniq -c | while read x ; do
+#6#[ -z "${x}" ] && break
+#6#set - $x
+#6#if [ $1 -gt 1 ]; then
+#6#gids=`gawk -F: '($1 == n) { print $3 }' n=$2 /etc/group | xargs`
+#6#echo "Duplicate Group Name ($2): ${gids}"
+#6#fi
+#6#done
 
 echo -e "\e[93mUser and Group Done\e[0m"
 
