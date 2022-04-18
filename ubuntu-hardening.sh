@@ -74,9 +74,6 @@ systemctl disable talk
 #Ensure telnet server is not enabled CHUA CHECK
 systemctl disable telnet
 
-#Ensure tftp server is not enabled CHUA CHECK
-#7#systemctl disable tftp
-
 #Ensure rsync service is not enabled BAT LAI KHI CAN
 systemctl disable rsync
 
@@ -99,20 +96,8 @@ systemctl disable rpcbind
 #Ensure DNS Server is not enabled OK
 systemctl disable named
 
-#Ensure FTP Server is not enabled BAT LAI KHI CAN
-#1#systemctl disable vsftpd
-
-#Ensure HTTP server is not enabled #check for apache, apache2 BAT LAI KHI CAN
-#8#systemctl disable httpd
-
-#Ensure IMAP and POP3 server is not enabled BAT LAI KHI CAN
-#1#systemctl disable dovecot
-
 #Ensure Samba is not enabled CHUA CHECK
 systemctl disable smb
-
-# Ensure HTTP Proxy Server is not enabled BAT LAI KHI CAN
-#6#systemctl disable squid
 
 #Ensure SNMP Server is not enabled CHUA CHECK
 systemctl disable snmpd
@@ -144,9 +129,6 @@ apt-get -y remove openldap-clients
 sed -i -e 's/^GRUB_CMDLINE_LINUX=.*/GRUB_CMDLINE_LINUX="ipv6.disable=1"/' \
         /etc/default/grub
 update-grub
-
-# Remove Unnecessary Packages
-#apt-get purge --auto-remove telnetd ftp vsftpd samba nfs-kernel-server nfs-common
 
 echo -e "\e[93mOS services Done\e[0m"
 
@@ -224,10 +206,6 @@ sed -ri'' 's/^#*HostbasedAuthentication.*$/HostbasedAuthentication no/g' /etc/ss
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/g' /etc/ssh/sshd_config
 grep "^PermitRootLogin" /etc/ssh/sshd_config
 
-#Change SSH port OK
-#sed -i 's/#Port 22/Port 13689/g' /etc/ssh/sshd_config
-#service ssh restart
-
 #Ensure SSH PermitEmptyPasswords is disabled OK
 sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/g'  /etc/ssh/sshd_config
 grep "^PermitEmptyPasswords" /etc/ssh/sshd_config
@@ -254,12 +232,6 @@ grep "^ClientAliveCountMax" /etc/ssh/sshd_config
 sed -i 's/#LoginGraceTime 2m/LoginGraceTime 60/g' /etc/ssh/sshd_config
 grep "^LoginGraceTime" /etc/ssh/sshd_config
 
-#Ensure SSH access is limited CHUA CHECK
-#1#grep "^AllowUsers" /etc/ssh/sshd_config
-#1#grep "^AllowGroups" /etc/ssh/sshd_config
-#1#grep "^DenyUsers" /etc/ssh/sshd_config
-#1#grep "^DenyGroups" /etc/ssh/sshd_config
-
 #Ensure SSH warning banner is configured CHUA CHECK
 sed -i 's/#Banner \/etc\/issue\.net/Banner \/etc\/issue\.net/g'  /etc/ssh/sshd_config
 grep "^Banner" /etc/ssh/sshd_config
@@ -280,80 +252,6 @@ sudo cat > /etc/issue.net <<- EOF
 EOF
 
 echo -e "\e[93mSSH Done\e[0m"
-
-# Enable ufw
-#ufw --force enable
-
-# Keep UFW active after system restart
-#sudo sed -i '6 i After=netfilter-persistent.service' /lib/systemd/system/ufw.service
-
-# Download ufw-ddns.sh script
-#curl -O https://raw.githubusercontent.com/NGUTU123/hardening_scripts/master/ufw-ddns.sh
-
-# Run ufw-ddns.sh script every 2 minute
-#chmod +x ufw-ddns.sh
-#sudo crontab -l > cron.bak
-#sudo echo "*/2 * * * * /home/ubuntu/ufw-ddns.sh" >> cron.bak
-#sudo crontab cron.bak
-#sudo rm cron.bak
-
-#echo -e "\e[93mufw Done\e[0m"
-
-# Ensure permissions on /etc/gshadow- are configured CHUA CHECK
-#1#chown root:root /etc/gshadow-
-#1#chmod 600 /etc/gshadow-
-#1#stat /etc/gshadow-
-
-#Ensure permissions on /etc/group- are configured CHUA CHECK
-#1#chown root:root /etc/group-
-#1#chmod 600 /etc/group-
-#1#stat /etc/group-
-
-#Ensure permissions on /etc/passwd- are configured CHUA CHECK
-#1#chown root:root /etc/passwd-
-#1#chmod 600 /etc/passwd-
-#1#stat /etc/passwd-
-
-#Ensure permissions on /etc/gshadow are configured CHUA CHECK
-#1#chown root:root /etc/gshadow
-#1#chmod 000 /etc/gshadow
-#1#stat /etc/gshadow
-
-#Ensure permissions on /etc/group are configured CHUA CHECK
-#1#chown root:root /etc/group
-#1#chmod 644 /etc/group
-#1#stat /etc/group
-
-#Ensure permissions on /etc/passwd are configured CHUA CHECK
-#1#chown root:root /etc/passwd
-#1#chmod 644 /etc/passwd
-#1#stat /etc/passwd
-
-#Ensure no world writable files exist CHUA CHECK
-#8#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -0002 -print
-
-#Ensure no ungrouped files or directories exist CHUA CHECK
-#3#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup
-
-# Ensure no unowned files or directories exist CHUA CHECK
-#3#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser
-
-#8#for dir in `/bin/cat /etc/passwd | /bin/egrep -v '(root|sync|halt|shutdown)' |
-#8#/usr/bin/awk -F: '($7 != "/usr/sbin/nologin") { print $6 }'`; do
-#8#for file in $dir/.[A-Za-z0-9]*; do
-#8#if [ ! -h "$file" -a -f "$file" ]; then
-#8#fileperm=`/bin/ls -ld $file | /usr/bin/cut -f1 -d" "`
-#8#if [ `echo $fileperm | /usr/bin/cut -c6 ` != "-" ]; then
-#8#echo "Group Write permission set on file $file"
-#8#fi
-#8#if [ `echo $fileperm | /usr/bin/cut -c9 ` != "-" ]; then
-#8#echo "Other Write permission set on file $file"
-#8#fi
-#8#fi
-#8#done
-#8#done
-
-echo -e "\e[93mSystem File Permissions Done\e[0m"
 
 login_defs=/etc/login.defs
 
@@ -385,18 +283,6 @@ echo -e "\e[93mUser Account Done\e[0m"
 
 #Ensure password fields are not empty CHUA CHECK
 cat /etc/shadow | awk -F: '($2 == "" ) { print $1 " does not have a password "}'
-
-#Ensure no legacy "+" entries exist in /etc/passwd CHUA CHECK
-#3#grep '^+:' /etc/passwd
-
-#Ensure no legacy "+" entries exist in /etc/shadow CHUA CHECK
-#3#grep '^+:' /etc/shadow
-
-#Ensure no legacy "+" entries exist in /etc/group CHUA CHECK
-#3#grep '^+:' /etc/group
-
-#Ensure root is the only UID 0 account CHUA CHECK
-#7#cat /etc/passwd | awk -F: '($3 == 0) { print $1 }'
 
 #Ensure root PATH Integrity CHUA CHECK
 if [ "`echo $PATH | grep :: `" != "" ]; then
@@ -430,59 +316,6 @@ while [ "$1" != "" ]; do
   fi
  shift
 done
-
-
- #Ensure all users' home directories exist CHUA CHECK
-#5#cat /etc/passwd | awk -F: '{ print $1 " " $3 " " $6 }' | while read user uid dir; do
- #5#if [ $uid -ge 1000 -a ! -d "$dir" -a $user != "nfsnobody" ]; then
- #5#echo "The home directory ($dir) of user $user does not exist."
- #5#fi
-#5#done
-
-#Ensure users home directories permissions are 750 or more restrictive CHUA CHECK
-#2#for dir in `cat /etc/passwd | egrep -v '(root|halt|sync|shutdown)' | awk -F: '($7 !="/sbin/nologin") {print $6}'`; do
- #2#dirperm=`ls -ld $dir | cut -f1 -d" "`
- #2#if [ `echo $dirperm | cut -c6 ` != "-" ]; then
- #2#echo "Group Write permission set on directory $dir"
-#2#fi
-#2#if [ `echo $dirperm | cut -c8 ` != "-" ]; then
-#2#echo "Other Read permission set on directory $dir"
-#2#fi
-#2#if [ `echo $dirperm | cut -c9 ` != "-" ]; then
-#2#echo "Other Write permission set on directory $dir"
-#2#fi
-#2#if [ `echo $dirperm | cut -c10 ` != "-" ]; then
-#2#echo "Other Execute permission set on directory $dir"
-#2#fi
-#2#done
-
-
-#Ensure users own their home directories CHUA CHECK
-#2#cat /etc/passwd | awk -F: '{ print $1 " " $3 " " $6 }' | while read user uid dir; do
-#2#if [ $uid -ge 1000 -a -d "$dir" -a $user != "nfsnobody" ]; then
-#2#owner=$(stat -L -c "%U" "$dir")
-#2#if [ "$owner" != "$user" ]; then
-#2#echo "The home directory ($dir) of user $user is owned by $owner."
-#2#fi
-#2#fi
-#2#done
-
-#Ensure users dot files are not group or world writable CHUA CHECK
-
-#7#for dir in `cat /etc/passwd | egrep -v '(root|sync|halt|shutdown)' | awk -F: '($7 !="/sbin/nologin") { print $6 }'`; do
-#7#for file in $dir/.[A-Za-z0-9]*; do
-#7#if [ ! -h "$file" -a -f "$file" ]; then
-#7#fileperm=`ls -ld $file | cut -f1 -d" "`
-#7#if [ `echo $fileperm | cut -c6 ` != "-" ]; then
-#7#echo "Group Write permission set on file $file"
-#7#fi
-#7#if [ `echo $fileperm | cut -c9 ` != "-" ]; then
-#7#echo "Other Write permission set on file $file"
-#7#fi
-#7#fi
- #7#done
-#7#done
-
 
 #Ensure no users have .forward files CHUA CHECK
 for dir in `cat /etc/passwd |\
@@ -536,15 +369,6 @@ fi
 done
 done
 
-
- #Ensure all groups in /etc/passwd exist in /etc/group CHUA CHECK
- #4#for i in $(cut -s -d: -f4 /etc/passwd | sort -u ); do
- #4#grep -q -P "^.*?:[^:]*:$i:" /etc/group
- #4#if [ $? -ne 0 ]; then
- #4#echo "Group $i is referenced by /etc/passwd but does not exist in /etc/group"
- #4#fi
-#4#done
-
 #Ensure no duplicate UIDs exist CHUA CHECK
 cat /etc/passwd | cut -f3 -d":" | sort -n | uniq -c | while read x ; do
 [ -z "${x}" ] && break
@@ -575,68 +399,7 @@ echo "Duplicate User Name ($2): ${uids}"
 fi
 done
 
-
- #Ensure no duplicate group names exist CHUA CHECK
- #6#cat /etc/group | cut -f1 -d":" | sort -n | uniq -c | while read x ; do
-#6#[ -z "${x}" ] && break
-#6#set - $x
-#6#if [ $1 -gt 1 ]; then
-#6#gids=`gawk -F: '($1 == n) { print $3 }' n=$2 /etc/group | xargs`
-#6#echo "Duplicate Group Name ($2): ${gids}"
-#6#fi
-#6#done
-
 echo -e "\e[93mUser and Group Done\e[0m"
-
-##################################
-## Enable Firewall and Iptables ##
-##################################
-# Flush IPtables rules
-#iptables -F
-# Ensure default deny firewall policy
-#iptables -P INPUT DROP
-#iptables -P OUTPUT DROP
-#iptables -P FORWARD DROP
-# Ensure loopback traffic is configured
-#iptables -A INPUT -i lo -j ACCEPT
-#iptables -A OUTPUT -o lo -j ACCEPT
-#iptables -A INPUT -s 127.0.0.0/8 -j DROP
-# Ensure outbound and established connections are configured
-#iptables -A OUTPUT -p tcp -m state --state NEW,ESTABLISHED -j ACCEPT
-#iptables -A OUTPUT -p udp -m state --state NEW,ESTABLISHED -j ACCEPT
-#iptables -A OUTPUT -p icmp -m state --state NEW,ESTABLISHED -j ACCEPT
-#iptables -A INPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
-#iptables -A INPUT -p udp -m state --state ESTABLISHED -j ACCEPT
-#iptables -A INPUT -p icmp -m state --state ESTABLISHED -j ACCEPT
-# Open inbound ssh(tcp port 13689) connections
-#iptables -A INPUT -p tcp --dport 13689 -m state --state NEW -j ACCEPT
-
-# Run the following commands to implement a default DROP policy
-#iptables -P INPUT DROP
-#iptables -P OUTPUT DROP
-#iptables -P FORWARD DROP
-#iptables -L
-
-# Run the following commands to implement the loopback rules
-#iptables -A INPUT -i lo -j ACCEPT
-#iptables -A OUTPUT -o lo -j ACCEPT
-#iptables -A INPUT -s 127.0.0.0/8 -j DROP
-
-# Configure iptables in accordance with site policy. The following commands will implement
-# a policy to allow all outbound connections and all established connections:
-#iptables -A OUTPUT -p tcp -m state --state NEW,ESTABLISHED -j ACCEPT
-#iptables -A OUTPUT -p udp -m state --state NEW,ESTABLISHED -j ACCEPT
-#iptables -A OUTPUT -p icmp -m state --state NEW,ESTABLISHED -j ACCEPT
-#iptables -A INPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
-#iptables -A INPUT -p udp -m state --state ESTABLISHED -j ACCEPT
-#iptables -A INPUT -p icmp -m state --state ESTABLISHED -j ACCEPT
-
-#iptables -P INPUT ACCEPT
-#iptables -P FORWARD ACCEPT
-#iptables -P OUTPUT ACCEPT
-#iptables -F
-#netfilter-persistent save
-
 
 ########################
 ## Configure Auditing ##
