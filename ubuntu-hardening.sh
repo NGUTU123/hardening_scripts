@@ -71,20 +71,11 @@ systemctl disable time-stream
 #Ensure talk server is not enabled CHUA CHECK
 systemctl disable talk
 
-#Ensure telnet server is not enabled CHUA CHECK
-systemctl disable telnet
-
-#Ensure rsync service is not enabled BAT LAI KHI CAN
-systemctl disable rsync
-
 #Ensure Avahi Server is not enabled #multicast DNS/DNS-SD service discovery CHUA CHECK
 systemctl disable avahi-daemon
 
 #Ensure CUPS is not enabled # will prevent printing from system CHUA CHECK
 systemctl disable cups
-
-#Ensure DHCP Server is not enabled CHUA CHECK
-systemctl disable dhcpd
 
 #Ensure LDAP server is not enabled CHUA CHECK
 systemctl disable slapd
