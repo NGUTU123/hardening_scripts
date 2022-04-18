@@ -12,12 +12,12 @@ update-grub
 
 echo -e "\e[93mOS services Done\e[0m"
 
-chown root:root /etc/ssh/sshd_config
-chmod og-rwx /etc/ssh/sshd_config
+#1#chown root:root /etc/ssh/sshd_config
+#1#chmod og-rwx /etc/ssh/sshd_config
 
 #Ensure SSH protocolis set to 2 CHUA CHECK
-#1#sed -i 's/#Protocol 2/Protocol 2/g'  /etc/ssh/sshd_config
-#1#grep "^Protocol" /etc/ssh/sshd_config
+sed -i 's/#Protocol 2/Protocol 2/g'  /etc/ssh/sshd_config
+grep "^Protocol" /etc/ssh/sshd_config
 
 #Ensure SSH LogLevel is set to INFO CHUA CHECK
 sed -i 's/#LogLevel INFO/Loglevel INFO/g' /etc/ssh/sshd_config
