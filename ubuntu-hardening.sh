@@ -103,7 +103,7 @@ systemctl disable named
 #1#systemctl disable vsftpd
 
 #Ensure HTTP server is not enabled #check for apache, apache2 BAT LAI KHI CAN
-systemctl disable httpd
+#8#systemctl disable httpd
 
 #Ensure IMAP and POP3 server is not enabled BAT LAI KHI CAN
 #1#systemctl disable dovecot
@@ -330,7 +330,7 @@ echo -e "\e[93mSSH Done\e[0m"
 #1#stat /etc/passwd
 
 #Ensure no world writable files exist CHUA CHECK
-df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -0002 -print
+#8#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -0002 -print
 
 #Ensure no ungrouped files or directories exist CHUA CHECK
 #3#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nogroup
@@ -338,20 +338,20 @@ df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -typ
 # Ensure no unowned files or directories exist CHUA CHECK
 #3#df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser
 
-for dir in `/bin/cat /etc/passwd | /bin/egrep -v '(root|sync|halt|shutdown)' |
-/usr/bin/awk -F: '($7 != "/usr/sbin/nologin") { print $6 }'`; do
-for file in $dir/.[A-Za-z0-9]*; do
-if [ ! -h "$file" -a -f "$file" ]; then
-fileperm=`/bin/ls -ld $file | /usr/bin/cut -f1 -d" "`
-if [ `echo $fileperm | /usr/bin/cut -c6 ` != "-" ]; then
-echo "Group Write permission set on file $file"
-fi
-if [ `echo $fileperm | /usr/bin/cut -c9 ` != "-" ]; then
-echo "Other Write permission set on file $file"
-fi
-fi
-done
-done
+#8#for dir in `/bin/cat /etc/passwd | /bin/egrep -v '(root|sync|halt|shutdown)' |
+#8#/usr/bin/awk -F: '($7 != "/usr/sbin/nologin") { print $6 }'`; do
+#8#for file in $dir/.[A-Za-z0-9]*; do
+#8#if [ ! -h "$file" -a -f "$file" ]; then
+#8#fileperm=`/bin/ls -ld $file | /usr/bin/cut -f1 -d" "`
+#8#if [ `echo $fileperm | /usr/bin/cut -c6 ` != "-" ]; then
+#8#echo "Group Write permission set on file $file"
+#8#fi
+#8#if [ `echo $fileperm | /usr/bin/cut -c9 ` != "-" ]; then
+#8#echo "Other Write permission set on file $file"
+#8#fi
+#8#fi
+#8#done
+#8#done
 
 echo -e "\e[93mSystem File Permissions Done\e[0m"
 
