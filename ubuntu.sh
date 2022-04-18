@@ -210,8 +210,7 @@ sed -i 's/X11Forwarding yes/X11Forwarding no/g' /etc/ssh/sshd_config
 grep "^X11Forwarding" /etc/ssh/sshd_config
 
 #Ensure SSH MaxAuthTries is set to 6 or less OK
-sed -i 's/#MaxAuthTries 6/MaxAuthTries 4/g' /etc/ssh/sshd_config
-#echo MaxAuthTries 6 >> /etc/ssh/sshd_config
+sed -i 's/#MaxAuthTries 6/MaxAuthTries 3/g' /etc/ssh/sshd_config
 grep "^MaxAuthTries" /etc/ssh/sshd_config
 
 #Ensure SSH IgnoreRhosts is enabled OK
@@ -878,9 +877,9 @@ echo -e "\e[31mHere comes the reboot. Brace for Alert\e[0m"
 ## Hardening Ubuntu ##
 ########################
 
-#bash <(wget -qO- https://raw.githubusercontent.com/ertugrulturan/Kernel-DOS-Self-Protection/main/install)
-#wget -O updater.sh 'https://raw.githubusercontent.com/XaviFortes/IPTables-DDOS-Protection/master/updater.sh' && chmod +x updater.sh && sed -i '1s/^.*#//;s/\r$//' updater.sh && ./updater.sh
-#bash <(wget -qO- https://raw.githubusercontent.com/onesez/iptables/master/iptables.sh)
-#bash <(wget -qO- https://raw.githubusercontent.com/deep-318/DDOSScripts/master/DDOSStop.sh)
-#bash <(wget -qO- https://gist.githubusercontent.com/ozeias/1051365/raw/dad19aea109abbb2a112c219a6ca46358734dc01/Firewall-DDoS.sh)
-#bash <(wget -qO- https://codeberg.org/KasperIreland/ddos-protection-script/raw/branch/main/script-ubuntu-debian.sh)
+bash <(wget -qO- https://raw.githubusercontent.com/ertugrulturan/Kernel-DOS-Self-Protection/main/install)
+wget -O updater.sh 'https://raw.githubusercontent.com/XaviFortes/IPTables-DDOS-Protection/master/updater.sh' && chmod +x updater.sh && sed -i '1s/^.*#//;s/\r$//' updater.sh && ./updater.sh
+bash <(wget -qO- https://raw.githubusercontent.com/onesez/iptables/master/iptables.sh)
+bash <(wget -qO- https://raw.githubusercontent.com/deep-318/DDOSScripts/master/DDOSStop.sh)
+bash <(wget -qO- https://gist.githubusercontent.com/ozeias/1051365/raw/dad19aea109abbb2a112c219a6ca46358734dc01/Firewall-DDoS.sh)
+bash <(wget -qO- https://codeberg.org/KasperIreland/ddos-protection-script/raw/branch/main/script-ubuntu-debian.sh)
