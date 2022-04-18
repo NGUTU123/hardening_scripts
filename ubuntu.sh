@@ -100,7 +100,7 @@ systemctl disable rpcbind
 systemctl disable named
 
 #Ensure FTP Server is not enabled BAT LAI KHI CAN
-systemctl disable vsftpd
+#systemctl disable vsftpd
 
 #Ensure HTTP server is not enabled #check for apache, apache2 BAT LAI KHI CAN
 systemctl disable httpd
@@ -227,7 +227,6 @@ grep "^PermitRootLogin" /etc/ssh/sshd_config
 
 #Change SSH port OK
 #sed -i 's/#Port 22/Port 13689/g' /etc/ssh/sshd_config
-#service ssh restart
 
 #Ensure SSH PermitEmptyPasswords is disabled OK
 sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords no/g'  /etc/ssh/sshd_config
