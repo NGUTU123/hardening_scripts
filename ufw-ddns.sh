@@ -13,11 +13,7 @@ if [ "$new_ip" = "$old_ip" ] ; then
     echo IP address has not changed
 else
     if [ -n "$old_ip" ] ; then
-    /usr/sbin/ufw delete allow from $old_ip to any port 13689 # ssh port
-    /usr/sbin/ufw delete allow from $old_ip to any port 22 # ssh port
-    /usr/sbin/ufw delete allow from $old_ip to any port 9000 # portainer port
+    /usr/sbin/ufw delete allow from $old_ip to any port 13689
     fi
     /usr/sbin/ufw allow from $new_ip to any port 13689 comment $HOSTNAME
-    /usr/sbin/ufw allow from $new_ip to any port 22 comment $HOSTNAME
-    /usr/sbin/ufw allow from $new_ip to any port 9000 comment $HOSTNAME
 fi
