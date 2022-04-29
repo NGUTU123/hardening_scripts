@@ -97,7 +97,7 @@ systemctl disable nfs
 systemctl disable rpcbind
 
 #Ensure DNS Server is not enabled OK
-systemctl disable named
+#systemctl disable named
 
 #Ensure FTP Server is not enabled BAT LAI KHI CAN
 #systemctl disable vsftpd
